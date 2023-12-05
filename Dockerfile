@@ -19,6 +19,8 @@ COPY ./hugohu_project_4 /app/hugohu_project_4
 # Create a virtual environment and install dependencies
 RUN pip install --disable-pip-version-check --no-cache-dir -r requirements.txt
 
+RUN python3 -m pip install types-requests
+
 RUN chown -R ${USER}:${USER} /app
 
 # Switch to the non-root user (optional but recommended)

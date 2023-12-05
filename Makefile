@@ -39,7 +39,7 @@ lint:             ## Run ruff, black, mypy linters.
 
 .PHONY: test
 test: lint        ## Run tests and generate coverage report.
-	$(ENV_PREFIX)pytest -v --cov-config .coveragerc --cov=hugohu_project_4 -l --tb=short --maxfail=1 tests/
+	$(ENV_PREFIX)pytest -v --cov-config .coveragerc --cov=hugohu_project_4 -l --tb=short --maxfail=10 tests/
 	#$(ENV_PREFIX)pytest --nbval hugohu_project_4/Hugo-Project-1.ipynb
 	$(ENV_PREFIX)coverage xml
 	$(ENV_PREFIX)coverage html

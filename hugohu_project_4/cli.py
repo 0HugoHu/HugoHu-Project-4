@@ -1,12 +1,9 @@
-from dotenv import load_dotenv
-import os
-import requests
 import json
-from flask import (
-    Flask,
-    render_template,
-    request, redirect, url_for,
-)
+import os
+
+import requests
+from dotenv import load_dotenv
+from flask import Flask, render_template, request
 
 load_dotenv()
 
@@ -24,20 +21,25 @@ def index():
 
 def query(payload):
     response = requests.post(API_URL, headers=HEADERS, json=payload)
-    return json.loads(response.content.decode("utf-8"))[0]['summary_text']
+    return json.loads(response.content.decode("utf-8"))[0]["summary_text"]
 
 
 @app.route("/summarize", methods=["POST"])
 def summarize():
-    if request.method == 'POST':
-        user_input = request.form['user_input']
+    if request.method == "POST":
+        user_input = request.form["user_input"]
 
-        output = query({
-            "inputs": user_input,
-        })
+        output = query(
+            {
+                "inputs": user_input,
+            }
+        )
 
         # Render the page with the result
-        return render_template('index.html', user_input=user_input, result=output)
+        return render_template(
+            "index.html", user_input=user_input, result=output
+        )
+
 
 def main():
     app.run(debug=True)

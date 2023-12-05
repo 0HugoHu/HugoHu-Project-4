@@ -20,5 +20,6 @@ uvicorn==0.18.3
 Flask==2.0.2
 gunicorn
 Werkzeug==2.2.2
+types-requests
 python-dotenv
 requests
