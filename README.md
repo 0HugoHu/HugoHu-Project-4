@@ -11,77 +11,41 @@
 ## Individual Project #4: Auto Scaling Flask App Using Any Serverless Platform
 
 ### 0. Description
-This project uses the [Customer Shopping Trends Dataset](https://www.kaggle.com/datasets/iamsouravbanerjee/customer-shopping-trends-dataset/data) provided by Kaggle to analyze ```age``` and ```subscription``` factors vs. ```sales number``` and ```categories```. 
-The dataset is stored in a CSV file and is loaded into a Databricks Delta Lake table. The data is then transformed using Spark SQL and the results are visualized using Databricks. 
-The Databricks ETL Pipeline is setup by reusing the extract, transform, and query and visualization code.
+This project builds a flask-based web application that uses the **Facebook BART** model to summarize long text. The model is used by **Hugging Face** free API. 
 
+The application is deployed on **AWS AppRunner**. The application is also containerized using **Docker** and uploaded to AWS ECR.
 
 ### 1. How to run
-Load this repo into your Databricks workspace and run the notebook.
-
-![](.tutorial/indi3_notebook.png)
-
-The full notebook result (```.ipynb``` format) is **[here](Project_3_Notebook.ipynb)**.
-
-
-### 2. Usage of Delta Lake
-#### 2.1. Store Data
-The dataset is stored in a CSV file and is loaded into a Databricks Delta Lake table.
-
-![](.tutorial/indi3_lake.png)
-
-#### 2.2. Data Validation
-The data is validated by checking the number of rows in the Delta Lake table.
-```python
-df = query_transform1().toPandas()
-if len(df) > 0:
-    print(f"Data validation passed. {len(df)} rows available.")
-else:
-    print("No data available. Please investigate.")
+#### 1.1. Build the Docker Container
+```bash
+docker build -t hugohu-project-4 .
 ```
 
-### 3. Usage of Spark SQL
-The data is transformed using Spark SQL for effective data analysis.
+#### 1.2. Upload It to AWS ECR
+```bash
+aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/s2z7p1g5
+# Assume you have the ECR repository created
+docker tag ids706_ip4:latest public.ecr.aws/s2z7p1g5/ids706_ip4:latest
+docker push public.ecr.aws/s2z7p1g5/ids706_ip4:latest
+```
 
-There are three SQL queries in this project:
-1. ```query_transform1()```: This query analyzes Customer Age Distribution by Category and Gender
-2. ```query_transform2()```: This query analyzes Average Purchase Amount by Location and Season, Considering Only Subscribed Customers
-3. ```query_transform3()```: This query analyzes Average Purchase Amount by Location and Season, Considering Only Non-Subscribed Customers
+#### 1.3. Create AWS AppRunner Service
+```bash
+# Or you can use the AWS Console to create the service
+aws apprunner create-service \
+    --service-name ids706-ip4 \
+    --source-configuration "RepositoryType=Docker,ImageRepository={ImageIdentifier=public.ecr.aws/s2z7p1g5/ids706_ip4:latest}" \
+    --instance-configuration "Cpu=1 vCPU,Memory=2 GB" \
+    --region us-east-1
+```
 
-![](.tutorial/indi3_sql.png)
-
-### 4. Visualization and Conclusion
-#### 4.1. Visualization
-The results are visualized using Databricks Notebook.
-
-![](.tutorial/indi3_1.png)
-
-![](.tutorial/indi3_2.png)
-
-![](.tutorial/indi3_3.png)
-
-#### 4.2. Recommendation
-Based on the Age Distribution figure, all age groups spend money on the ```Clothing``` and ```Accessories``` categories.
-So if you want to sell more products, you should focus on these two categories first.
-
-Based on the Average Purchase Amount figure, the ```Winter``` season has the highest average purchase amount for subscribers, while
-the ```Fall``` season has the highest average purchase amount for non-subscribers.
-But overall, the holiday season (From Thanksgiving to New Year's Day) has the highest average purchase amount.
-
-For state like ```North Carolina```, the purchase amounts are almost the same during a year, because the climate is mild and the seasons are not very distinct.
-
-If you are companies in ```Arizona```, you should focus more on the ```Fall``` season.
+#### 1.4. Setup Your Hugging Face API Key
+```bash
+export API_TOKEN="your_actual_token_value"
+```
 
 
-### 5. Databricks ETL Pipeline
-The pipeline is set up by 4 steps:
-1. Create Environment: Store the hostname and token in environment variables
-2. Extract: Load the dataset into a Databricks Delta Lake table
-3. Transform: Transform the data using Spark SQL
-4. Query and Visualize: Visualize the results using Databricks Notebook
 
-It is scheduled to run every day at 05:14 AM UTC.
-![](.tutorial/indi3_workflow.png)
 
 
 ### 6. Conclusion

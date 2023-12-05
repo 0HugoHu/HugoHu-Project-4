@@ -10,7 +10,7 @@ load_dotenv()
 app = Flask(__name__)
 API_TOKEN = os.getenv("API_TOKEN")
 
-HEADERS = {"Authorization": f"Bearer {API_TOKEN}"}
+HEADERS = {"Authorization": "Bearer {}".format(API_TOKEN)}
 API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
 
 
