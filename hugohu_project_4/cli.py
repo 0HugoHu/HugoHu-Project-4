@@ -1,9 +1,9 @@
 import json
 import os
-from urllib import request
 
+import requests
 from dotenv import load_dotenv
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 load_dotenv()
 
@@ -20,17 +20,8 @@ def index():
 
 
 def query(payload):
-    # response = requests.post(API_URL, headers=HEADERS, json=payload)
-    # return json.loads(response.content.decode("utf-8"))[0]["summary_text"]
-    json_payload = json.dumps(payload).encode("utf-8")
-    req = request.Request(
-        API_URL, data=json_payload, headers=HEADERS, method="POST"
-    )
-
-    with request.urlopen(req) as response:
-        response_content = response.read().decode("utf-8")
-        result = json.loads(response_content)
-        return result[0]["summary_text"]
+    response = requests.post(API_URL, headers=HEADERS, json=payload)
+    return json.loads(response.content.decode("utf-8"))[0]["summary_text"]
 
 
 @app.route("/summarize", methods=["POST"])
@@ -51,4 +42,4 @@ def summarize():
 
 
 def main():
-    app.run(debug=False, host="0.0.0.0", port=80)
+    app.run(debug=False, host="0.0.0.0", port=8080)
