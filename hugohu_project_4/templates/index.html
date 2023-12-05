@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Summarizer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<div class="background"></div>
+
+<div class="container">
+    <div class="card">
+        <h1>Text Summarizer</h1>
+
+        {% if not result %}
+        <form method="post" action="{{ url_for('summarize') }}">
+            <label for="userInput"></label>
+            <textarea id="userInput" name="user_input" rows="8"
+                      placeholder="Enter your long long stories...">{{ user_input }}</textarea>
+
+            <button type="submit"> Summarize (This may take >10 seconds) </button>
+        </form>
+        {% else %}
+        <form method="get" action="{{ url_for('index') }}">
+            <label for="userInput2"></label>
+            <textarea id="userInput2" name="user_input" rows="8"
+                      placeholder="Enter your long long stories...">{{ user_input }}</textarea>
+
+            <button type="submit"> Back to main page </button>
+        </form>
+        {% endif %}
+
+        {% if not result %}
+        <div class="examples">
+            <h2>Choose a Story from Aesop's Fables:</h2>
+            <div class="example-cards">
+                <div class="example-card" onclick="fillExample('The Farmer & the Snake', 'A Farmer walked through his field one cold winter morning. On the ground lay a Snake, stiff and frozen with the cold. The Farmer knew how deadly the Snake could be, and yet he picked it up and put it in his bosom to warm it back to life.\n'+
+                    '\n'+
+                    'The Snake soon revived, and when it had enough strength, bit the man who had been so kind to it. The bite was deadly and the Farmer felt that he must die. As he drew his last breath, he said to those standing around:\n'+
+                    '\n'+
+                    'Learn from my fate not to take pity on a scoundrel.')">
+                    <h3>The Farmer & the Snake</h3>
+                    <p>A Farmer walked through his field one cold winter morning. On the ground lay a Snake...</p>
+                </div>
+                <div class="example-card" onclick="fillExample('The Fox & the Grapes', 'A Fox one day spied a beautiful bunch of ripe grapes hanging from a vine trained along the branches of a tree. The grapes seemed ready to burst with juice, and the Fox\'s mouth watered as he gazed longingly at them.\n'+
+                    '\n'+
+                    'The bunch hung from a high branch, and the Fox had to jump for it. The first time he jumped he missed it by a long way. So he walked off a short distance and took a running leap at it, only to fall short once more. Again and again he tried, but in vain.\n'+
+                    '\n'+
+                    'Now he sat down and looked at the grapes in disgust.\n'+
+                    '\n'+
+                    '\' What a fool I am, \' he said. \'Here I am wearing myself out to get a bunch of sour grapes that are not worth gaping for.\'\n'+
+                    '\n'+
+                    'And off he walked very, very scornfully.\n'+
+                    '\n'+
+                    'There are many who pretend to despise and belittle that which is beyond their reach.')">
+                    <h3>The Fox & the Grapes</h3>
+                    <p>A Fox one day spied a beautiful bunch of ripe grapes hanging from a vine trained along the...</p>
+                </div>
+                <div class="example-card" onclick="fillExample('The Goose & the Golden Egg', 'There was once a Countryman who possessed the most wonderful Goose you can imagine, for every day when he visited the nest, the Goose had laid a beautiful, glittering, golden egg.\n'+
+                    '\n'+
+                    'The Countryman took the eggs to market and soon began to get rich. But it was not long before he grew impatient with the Goose because she gave him only a single golden egg a day. He was not getting rich fast enough.\n'+
+                    '\n'+
+                    'Then one day, after he had finished counting his money, the idea came to him that he could get all the golden eggs at once by killing the Goose and cutting it open. But when the deed was done, not a single golden egg did he find, and his precious Goose was dead.\n'+
+                    '\n'+
+                    'Those who have plenty want more and so lose all they have.')">
+                    <h3>The Goose & the Golden Egg</h3>
+                    <p>There was once a Countryman who possessed the most wonderful Goose you can imagine, for...</p>
+                </div>
+                <div class="example-card" onclick="fillExample('The Mice & the Weasels', 'The Weasels and the Mice were always up in arms against each other. In every battle the Weasels carried off the victory, as well as a large number of the Mice, which they ate for dinner next day. In despair the Mice called a council, and there it was decided that the Mouse army was always beaten because it had no leaders. So a large number of generals and commanders were appointed from among the most eminent Mice.\n'+
+                    '\n'+
+                    'To distinguish themselves from the soldiers in the ranks, the new leaders proudly bound on their heads lofty crests and ornaments of feathers or straw. Then after long preparation of the Mouse army in all the arts of war, they sent a challenge to the Weasels.\n'+
+                    '\n'+
+                    'The Weasels accepted the challenge with eagerness, for they were always ready for a fight when a meal was in sight. They immediately attacked the Mouse army in large numbers. Soon the Mouse line gave way before the attack and the whole army fled for cover. The privates easily slipped into their holes, but the Mouse leaders could not squeeze through the narrow openings because of their head-dresses. Not one escaped the teeth of the hungry Weasels.\n'+
+                    '\n'+
+                    'Greatness has its penalties.')">
+                    <h3>The Wolf & the Lean Dog</h3>
+                    <p>The Weasels and the Mice were always up in arms against each other. In every battle the...</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if result %}
+        <div class="result">
+            <h2>Summary:</h2>
+            <p>{{ result }}</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    function fillExample(title, text) {
+        document.getElementById('userInput').value = text;
+    }
+</script>
+</body>
+</html>

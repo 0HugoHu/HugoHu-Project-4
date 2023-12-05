@@ -1,0 +1,113 @@
+@font-face {
+    font-family: 'goudyBookletter';
+    src: url('fonts/GoudyBookletter1911-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'goudyBookletter', 'Arial', sans-serif;
+    overflow: hidden;
+}
+
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('background-image.jpg'); /* Replace with your image URL */
+    background-size: cover;
+    filter: blur(5px);
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.8); /* Adjust the alpha (fourth) value for transparency */
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    max-width: 700px;
+    width: 100%;
+    box-sizing: border-box;
+    backdrop-filter: blur(5px); /* Adjust the blur value */
+}
+
+textarea {
+    width: 95%;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background-color: #c02c38;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #8e212d;
+}
+
+.examples {
+    margin-top: 20px;
+}
+
+.example-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+}
+
+.example-card {
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 85%;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.example-card:hover {
+    transform: scale(1.05);
+}
+
+.example-card h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.example-card p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.result {
+    margin-top: 20px;
+}
+
+.result h2 {
+    margin-bottom: 10px;
+    color: #333;
+}

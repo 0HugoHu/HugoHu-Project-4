@@ -1,28 +1,43 @@
-"""CLI interface for ids706_python_template project.
+from dotenv import load_dotenv
+import os
+import requests
+import json
+from flask import (
+    Flask,
+    render_template,
+    request, redirect, url_for,
+)
 
-Be creative! do whatever you want!
+load_dotenv()
 
-- Install click or typer and create a CLI app
-- Use builtin argparse
-- Start a web application
-- Import things from your .base module
-"""
+app = Flask(__name__)
+API_TOKEN = os.getenv("API_TOKEN")
+
+HEADERS = {"Authorization": f"Bearer {API_TOKEN}"}
+API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
 
 
-def main():  # pragma: no cover
-    """
-    The main function executes on commands:
-    `python -m ids706_python_template` and `$ ids706_python_template `.
+@app.route("/")
+def index():
+    return render_template("index.html")
 
-    This is your program's entry point.
 
-    You can change this function to do whatever you want.
-    Examples:
-        * Run a test suite
-        * Run a server
-        * Do some other stuff
-        * Run a command line application (Click, Typer, ArgParse)
-        * List all available tasks
-        * Run an application (Flask, FastAPI, Django, etc.)
-    """
-    print("This will do something")
+def query(payload):
+    response = requests.post(API_URL, headers=HEADERS, json=payload)
+    return json.loads(response.content.decode("utf-8"))[0]['summary_text']
+
+
+@app.route("/summarize", methods=["POST"])
+def summarize():
+    if request.method == 'POST':
+        user_input = request.form['user_input']
+
+        output = query({
+            "inputs": user_input,
+        })
+
+        # Render the page with the result
+        return render_template('index.html', user_input=user_input, result=output)
+
+def main():
+    app.run(debug=True)
