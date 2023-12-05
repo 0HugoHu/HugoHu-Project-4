@@ -37,13 +37,16 @@ aws apprunner create-service \
     --source-configuration "RepositoryType=Docker,ImageRepository={ImageIdentifier=public.ecr.aws/s2z7p1g5/ids706_ip4:latest}" \
     --instance-configuration "Cpu=1 vCPU,Memory=2 GB" \
     --region us-east-1
+# You need to set up build scripts for Flask App
 ```
 
 #### 1.4. Setup Your Hugging Face API Key
 ```bash
+# Or you can import it during AppRunner setup
 export API_TOKEN="your_actual_token_value"
 ```
 
+#### 1.5. 
 
 
 
