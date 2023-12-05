@@ -1,54 +1,90 @@
-# IDS706-Python-Template
-Duke IDS706 course project template
+[![Install](https://github.com/0HugoHu/HugoHu-Project-4/actions/workflows/lint.yml/badge.svg)](https://github.com/0HugoHu/HugoHu-Project-4/actions/workflows/lint.yml)
+[![Lint](https://github.com/0HugoHu/HugoHu-Project-4/actions/workflows/format.yml/badge.svg)](https://github.com/0HugoHu/HugoHu-Project-4/actions/workflows/rustfmt.yml)
+[![Format](https://github.com/0HugoHu/HugoHu-Project-4/actions/workflows/install.yml/badge.svg)](https://github.com/0HugoHu/HugoHu-Project-4/actions/workflows/binary.yml)
+[![Test](https://github.com/0HugoHu/HugoHu-Project-4/actions/workflows/test.yml/badge.svg)](https://github.com/0HugoHu/HugoHu-Project-4/actions/workflows/tests.yml)
 
-Yadong (Hugo) Hu
 
+[Youtube Video Here](https://youtu.be/Zc14G47JNk4) 
+&nbsp;&nbsp;![YouTube Video Views](https://img.shields.io/youtube/views/Zc14G47JNk4)
+
+
+## Individual Project #4: Auto Scaling Flask App Using Any Serverless Platform
+
+### 0. Description
+This project uses the [Customer Shopping Trends Dataset](https://www.kaggle.com/datasets/iamsouravbanerjee/customer-shopping-trends-dataset/data) provided by Kaggle to analyze ```age``` and ```subscription``` factors vs. ```sales number``` and ```categories```. 
+The dataset is stored in a CSV file and is loaded into a Databricks Delta Lake table. The data is then transformed using Spark SQL and the results are visualized using Databricks. 
+The Databricks ETL Pipeline is setup by reusing the extract, transform, and query and visualization code.
+
+
+### 1. How to run
+Load this repo into your Databricks workspace and run the notebook.
+
+![](.tutorial/indi3_notebook.png)
+
+The full notebook result (```.ipynb``` format) is **[here](Project_3_Notebook.ipynb)**.
+
+
+### 2. Usage of Delta Lake
+#### 2.1. Store Data
+The dataset is stored in a CSV file and is loaded into a Databricks Delta Lake table.
+
+![](.tutorial/indi3_lake.png)
+
+#### 2.2. Data Validation
+The data is validated by checking the number of rows in the Delta Lake table.
+```python
+df = query_transform1().toPandas()
+if len(df) > 0:
+    print(f"Data validation passed. {len(df)} rows available.")
+else:
+    print("No data available. Please investigate.")
 ```
-├── Dockerfile               # The file to build a container using docker
-├── CONTRIBUTING.md          # Onboarding instructions for new contributors
-├── .github                  # Github metadata for repository
-│   ├── release_message.sh   # A script to generate a release message
-│   └── workflows            # The CI pipeline for GitHub Actions
-├── .gitignore               # A list of files to ignore when pushing to GitHub
-├── HISTORY.md               # Auto-generated list of changes to the project
-├── LICENSE                  # The license for the project
-├── Makefile                 # A collection of utilities to manage the project
-├── MANIFEST.in              # A list of files to include in a package
-├── ids706_python_template   # The main Python package for any future project
-│   ├── base.py              # The base module for the project
-│   ├── __init__.py          # This tells Python that this is a package
-│   ├── __main__.py          # The entry point for the project
-│   └── VERSION              # The version for the project is kept in a static file
-├── README.md                # The main readme for the project
-├── setup.py                 # The setup.py file for installing and packaging the project
-├── requirements.txt         # An empty file to hold the requirements for the project
-├── requirements-test.txt    # List of requirements for testing and development
-├── setup.py                 # The setup.py file for installing and packaging the project
-└── tests                    # Unit tests for the project
-    ├── conftest.py          # Configuration, hooks, and fixtures for pytest
-    ├── __init__.py          # This tells Python that this is a test package
-    └── test_base.py         # The base test case for the project
-└── .tutorial                # Screenshots of how to run docker
-```
 
-<br />
+### 3. Usage of Spark SQL
+The data is transformed using Spark SQL for effective data analysis.
 
-To build and run the project, go to the ```Dockerfile```, and make sure your **Docker** is running on your computer.
+There are three SQL queries in this project:
+1. ```query_transform1()```: This query analyzes Customer Age Distribution by Category and Gender
+2. ```query_transform2()```: This query analyzes Average Purchase Amount by Location and Season, Considering Only Subscribed Customers
+3. ```query_transform3()```: This query analyzes Average Purchase Amount by Location and Season, Considering Only Non-Subscribed Customers
 
-You can hit the run button on the first line if you are using the PyCharm IDE:
+![](.tutorial/indi3_sql.png)
 
-![](/.tutorial/step1.png)
+### 4. Visualization and Conclusion
+#### 4.1. Visualization
+The results are visualized using Databricks Notebook.
 
-Or you need to configure your Dockerfile configuration (please use all default values, connect to Docker Daemon on Mac with unix:///var/run/docker.sock):
+![](.tutorial/indi3_1.png)
 
-![](/.tutorial/step2.png)
+![](.tutorial/indi3_2.png)
 
-Then, hit the run button, and the Docker image begins to build:
+![](.tutorial/indi3_3.png)
 
-![](/.tutorial/step3.png)
+#### 4.2. Recommendation
+Based on the Age Distribution figure, all age groups spend money on the ```Clothing``` and ```Accessories``` categories.
+So if you want to sell more products, you should focus on these two categories first.
 
-The output should be a string:
+Based on the Average Purchase Amount figure, the ```Winter``` season has the highest average purchase amount for subscribers, while
+the ```Fall``` season has the highest average purchase amount for non-subscribers.
+But overall, the holiday season (From Thanksgiving to New Year's Day) has the highest average purchase amount.
 
-![](/.tutorial/step4.png)
+For state like ```North Carolina```, the purchase amounts are almost the same during a year, because the climate is mild and the seasons are not very distinct.
 
-<br />
+If you are companies in ```Arizona```, you should focus more on the ```Fall``` season.
+
+
+### 5. Databricks ETL Pipeline
+The pipeline is set up by 4 steps:
+1. Create Environment: Store the hostname and token in environment variables
+2. Extract: Load the dataset into a Databricks Delta Lake table
+3. Transform: Transform the data using Spark SQL
+4. Query and Visualize: Visualize the results using Databricks Notebook
+
+It is scheduled to run every day at 05:14 AM UTC.
+![](.tutorial/indi3_workflow.png)
+
+
+### 6. Conclusion
+From this project, I learned how to use Databricks to analyze data and visualize the results. I also learned how to set up a Databricks ETL Pipeline to automate the process.
+
+The result shows a fun fact that despite different age groups, people spend money on the ```Clothing``` and ```Accessories``` categories. And the holiday season has the highest average purchase amount.
