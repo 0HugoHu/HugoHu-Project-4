@@ -22,7 +22,7 @@ show:             ## Show the current environment.
 install:          ## Install the project in dev mode.
 	@if [ "$(USING_POETRY)" ]; then poetry install && exit; fi
 	@echo "Don't forget to run 'make virtualenv' if you got errors."
-	$(ENV_PREFIX). venv/bin/activate && pip install --disable-pip-version-check --no-cache-dir -r requirements.txt
+	$(ENV_PREFIX)pip install --disable-pip-version-check --no-cache-dir -r requirements.txt
 
 .PHONY: fmt format
 fmt format:              ## Format code using black & isort.
@@ -113,7 +113,6 @@ init:             ## Initialize the project based on an application template.
 .PHONY: run
 run:              ## Execute the Python code.
 	@echo "Running using $(ENV_PREFIX)"
-	$(ENV_PREFIX)make virtualenv
 	$(ENV_PREFIX)make install
 	$(ENV_PREFIX)python3 -m hugohu_project_4 --port 8080
 
