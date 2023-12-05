@@ -21,6 +21,7 @@ def index():
 
 def query(payload):
     response = requests.post(API_URL, headers=HEADERS, json=payload)
+    print(API_TOKEN)
     print(response.content.decode("utf-8"))
     return json.loads(response.content.decode("utf-8"))[0]["summary_text"]
 
