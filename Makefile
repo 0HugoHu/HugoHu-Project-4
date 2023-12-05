@@ -114,9 +114,8 @@ init:             ## Initialize the project based on an application template.
 run:              ## Execute the Python code.
 	@echo "Running using $(ENV_PREFIX)"
 	$(ENV_PREFIX)make virtualenv
-	$(ENV_PREFIX)make virtualenv
 	$(ENV_PREFIX)make install
-	$(ENV_PREFIX). venv/bin/activate && python3 -m hugohu_project_4 --port 8080
+	$(ENV_PREFIX)python3 -m hugohu_project_4 --port 8080
 
 # This project has been generated from rochacbruno/python-project-template
 # __author__ = 'rochacbruno'
