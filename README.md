@@ -60,7 +60,9 @@ If you want to have a custom CA certificate for secure HTTPS connection, you nee
 ![](./hugohu_project_4/static/host.png)
 
 ### 2. How to use
-**Visit my domain: [https://ids706.hugohu.site/](https://ids706.hugohu.site/)**
+**Visit my domain: [http://ids706.hugohu.site/](http://ids706.hugohu.site/)**
+
+(This is not an HTTPS connection, for some reason please just use HTTP instead)
 
 ![](./hugohu_project_4/static/web.png)
 
