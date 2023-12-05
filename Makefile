@@ -112,6 +112,7 @@ init:             ## Initialize the project based on an application template.
 
 .PHONY: run
 run:              ## Execute the Python code.
+	$(ENV_PREFIX)make install
 	$(ENV_PREFIX)python3 -m hugohu_project_4
 
 # This project has been generated from rochacbruno/python-project-template
