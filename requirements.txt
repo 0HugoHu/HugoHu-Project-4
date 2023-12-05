@@ -23,4 +23,3 @@ Werkzeug==2.2.2
 types-requests
 python-dotenv
 requests
-urllib3<2.0
