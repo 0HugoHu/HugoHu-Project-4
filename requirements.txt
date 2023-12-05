@@ -12,6 +12,6 @@ black
 mypy
 isort
 coverage
-Flask==2.0.2
+Flask
 python-dotenv
 requests
