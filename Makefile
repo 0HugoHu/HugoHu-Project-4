@@ -26,21 +26,21 @@ install:          ## Install the project in dev mode.
 
 .PHONY: fmt format
 fmt format:              ## Format code using black & isort.
-	$(ENV_PREFIX)isort ids706_python_template/
-	$(ENV_PREFIX)black -l 79 ids706_python_template/
+	$(ENV_PREFIX)isort hugohu-project-4/
+	$(ENV_PREFIX)black -l 79 hugohu-project-4/
 	$(ENV_PREFIX)black -l 79 tests/
 
 .PHONY: lint
 lint:             ## Run ruff, black, mypy linters.
-	$(ENV_PREFIX)ruff ids706_python_template/
-	$(ENV_PREFIX)black -l 79 --check ids706_python_template/
+	$(ENV_PREFIX)ruff hugohu-project-4/
+	$(ENV_PREFIX)black -l 79 --check hugohu-project-4/
 	$(ENV_PREFIX)black -l 79 --check tests/
-	$(ENV_PREFIX)mypy --ignore-missing-imports ids706_python_template/
+	$(ENV_PREFIX)mypy --ignore-missing-imports hugohu-project-4/
 
 .PHONY: test
 test: lint        ## Run tests and generate coverage report.
-	$(ENV_PREFIX)pytest -v --cov-config .coveragerc --cov=ids706_python_template -l --tb=short --maxfail=1 tests/
-	#$(ENV_PREFIX)pytest --nbval ids706_python_template/Hugo-Project-1.ipynb
+	$(ENV_PREFIX)pytest -v --cov-config .coveragerc --cov=hugohu-project-4 -l --tb=short --maxfail=1 tests/
+	#$(ENV_PREFIX)pytest --nbval hugohu-project-4/Hugo-Project-1.ipynb
 	$(ENV_PREFIX)coverage xml
 	$(ENV_PREFIX)coverage html
 
@@ -79,9 +79,9 @@ virtualenv:       ## Create a virtual environment.
 release:          ## Create a new tag for release.
 	@echo "WARNING: This operation will create s version tag and push to github"
 	@read -p "Version? (provide the next x.y.z semver) : " TAG
-	@echo "$${TAG}" > ids706_python_template/VERSION
+	@echo "$${TAG}" > hugohu-project-4/VERSION
 	@$(ENV_PREFIX)gitchangelog > HISTORY.md
-	@git add ids706_python_template/VERSION HISTORY.md
+	@git add hugohu-project-4/VERSION HISTORY.md
 	@git commit -m "release: version $${TAG} 🚀"
 	@echo "creating git tag : $${TAG}"
 	@git tag $${TAG}
@@ -96,7 +96,7 @@ switch-to-poetry: ## Switch to poetry package manager.
 	@poetry init --no-interaction --name=a_flask_test --author=rochacbruno
 	@echo "" >> pyproject.toml
 	@echo "[tool.poetry.scripts]" >> pyproject.toml
-	@echo "ids706_python_template = 'ids706_python_template.__main__:main'" >> pyproject.toml
+	@echo "hugohu-project-4 = 'hugohu-project-4.__main__:main'" >> pyproject.toml
 	@cat requirements.txt | while read in; do poetry add --no-interaction "$${in}"; done
 	@cat requirements-test.txt | while read in; do poetry add --no-interaction "$${in}" --dev; done
 	@poetry install --no-interaction
@@ -104,7 +104,7 @@ switch-to-poetry: ## Switch to poetry package manager.
 	@mv requirements* .github/backup
 	@mv setup.py .github/backup
 	@echo "You have switched to https://python-poetry.org/ package manager."
-	@echo "Please run 'poetry shell' or 'poetry run ids706_python_template'"
+	@echo "Please run 'poetry shell' or 'poetry run hugohu-project-4'"
 
 .PHONY: init
 init:             ## Initialize the project based on an application template.
