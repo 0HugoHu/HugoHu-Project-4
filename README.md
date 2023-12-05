@@ -1,11 +1,9 @@
 [![Install](https://github.com/0HugoHu/HugoHu-Project-4/actions/workflows/lint.yml/badge.svg)](https://github.com/0HugoHu/HugoHu-Project-4/actions/workflows/lint.yml)
 [![Lint](https://github.com/0HugoHu/HugoHu-Project-4/actions/workflows/format.yml/badge.svg)](https://github.com/0HugoHu/HugoHu-Project-4/actions/workflows/rustfmt.yml)
 [![Format](https://github.com/0HugoHu/HugoHu-Project-4/actions/workflows/install.yml/badge.svg)](https://github.com/0HugoHu/HugoHu-Project-4/actions/workflows/binary.yml)
-[![Test](https://github.com/0HugoHu/HugoHu-Project-4/actions/workflows/test.yml/badge.svg)](https://github.com/0HugoHu/HugoHu-Project-4/actions/workflows/tests.yml)
 
-
-[Youtube Video Here](https://youtu.be/Zc14G47JNk4) 
-&nbsp;&nbsp;![YouTube Video Views](https://img.shields.io/youtube/views/Zc14G47JNk4)
+[Youtube Video Here](https://youtu.be/_DSV9nnL_Gc) 
+&nbsp;&nbsp;![YouTube Video Views](https://img.shields.io/youtube/views/_DSV9nnL_Gc)
 
 
 ## Individual Project #4: Auto Scaling Flask App Using Any Serverless Platform
