@@ -5,21 +5,12 @@
 # You can also run `make switch-to-poetry` to use the poetry package manager.
 
 pytest
-pytest-mock
 ruff
 scipy
 nbval
 black
 mypy
 isort
-pytest-cov
-gitchangelog
 coverage
-fastapi==0.85.0
-uvicorn==0.18.3
 Flask==2.0.2
-gunicorn
-Werkzeug==2.2.2
-types-requests
 python-dotenv
-requests
