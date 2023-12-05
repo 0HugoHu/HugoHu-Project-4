@@ -14,4 +14,4 @@ isort
 coverage
 Flask==2.0.2
 python-dotenv
-requests==2.6.0
+requests
